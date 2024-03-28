@@ -1,4 +1,4 @@
-name: React Sample CI-CD
+name: CI-CD
 on: push
 jobs:
   lint:
@@ -11,6 +11,7 @@ jobs:
       - name: Lint
         run: npm run lint
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -20,6 +21,7 @@ jobs:
       - name: Test
         run: npm run test
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -28,7 +30,13 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+  deploy:
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
       - name: Echo node version
         run: node -v
       - name: Echo github context
         run: echo "${{ toJson(github)}}"
+      - name: Deploy
+        run: echo "Deploying..."

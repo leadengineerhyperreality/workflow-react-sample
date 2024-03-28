@@ -6,20 +6,3 @@ jobs:
     steps:
       - name: Issue details
         run: echo "${{ toJSON(github.event) }}"
-      # - name: Issue action
-      #   uses: actions/github-script@v6
-      #   with:
-      #     script: |
-      #       github.rest.issues.update({
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         issue_number: context.issue.number,
-      #         state: 'open',
-      #       })
-
-      #       github.rest.issues.addLabels({
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         issue_number: context.issue.number,
-      #         labels: ['public'],
-      #       })

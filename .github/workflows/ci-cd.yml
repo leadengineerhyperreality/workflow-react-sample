@@ -1,6 +1,24 @@
 name: React Sample CI-CD
 on: push
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm run test
   build:
     runs-on: ubuntu-latest
     steps:

@@ -18,3 +18,7 @@ test("adds 0 + 0 to equal 0", () => {
 test("multiplies 2 * 2 to equal 4", () => {
   expect(multiply(2, 2)).toBe(4);
 });
+
+test("multiplies 3 * 3 to equal 9", () => {
+  expect(multiply(3, 3)).toBe(9);
+});

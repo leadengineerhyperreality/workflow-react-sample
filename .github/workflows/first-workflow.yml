@@ -1,0 +1,10 @@
+name: My first github workflow
+on: [push, workflow_dispatch]
+jobs:
+  first-job:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: First step
+        run: echo "First step"
+      - name: Second step
+        run: echo "Second step"

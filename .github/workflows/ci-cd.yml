@@ -42,8 +42,14 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Github context
+        run: echo "${{ toJson(github)}}"
+
   deploy:
-    needs: [lint, test]
+    needs: [log, test]
     runs-on: ubuntu-latest
     steps:
       - name: Previous node version
@@ -54,7 +60,5 @@ jobs:
           node-version: 20.11.1
       - name: Updated node version
         run: node -v
-      - name: Github context
-        run: echo "${{ toJson(github)}}"
       - name: Deploy
         run: echo "Deploying..."

@@ -27,6 +27,10 @@ test("multiplies 0 * 0 to equal 0", () => {
   expect(multiply(0, 0)).toBe(0);
 });
 
+test("divides by 0 gives an error", () => {
+  expect(() => divide(4, 0)).toThrow();
+});
+
 test("divides 4 / 2 to equal 2", () => {
   expect(divide(4, 2)).toBe(2);
 });

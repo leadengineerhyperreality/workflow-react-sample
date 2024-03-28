@@ -23,6 +23,10 @@ test("multiplies 3 * 3 to equal 9", () => {
   expect(multiply(3, 3)).toBe(9);
 });
 
+test("multiplies 0 * 0 to equal 0", () => {
+  expect(multiply(0, 0)).toBe(0);
+});
+
 test("divides 4 / 2 to equal 2", () => {
   expect(divide(4, 2)).toBe(2);
 });

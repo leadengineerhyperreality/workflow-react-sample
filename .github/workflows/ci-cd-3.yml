@@ -6,9 +6,6 @@ on:
   push:
     branches:
       - main
-      - release/**
-    paths:
-      - "**/*.test.js"
 jobs:
   lint:
     runs-on: ubuntu-latest

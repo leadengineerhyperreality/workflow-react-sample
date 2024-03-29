@@ -21,3 +21,7 @@ export function subtract(a, b) {
 export function mod(a, b) {
   return a % b;
 }
+
+export function power(a, b) {
+  return Math.pow(a, b);
+}

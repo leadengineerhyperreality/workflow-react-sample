@@ -72,5 +72,15 @@ jobs:
           name: assets
       - name: List files
         run: ls
+      - name: Remove all files
+        run: rm -rf *
+      - name: List after remove
+        run: ls
+      - name: Download build assets
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+      - name: List files
+        run: ls
       - name: Deploy
         run: echo "Deploying..."

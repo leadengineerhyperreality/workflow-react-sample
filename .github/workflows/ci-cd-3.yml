@@ -47,6 +47,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      jsfile: ${{ steps.publishedjs.outputs.jsfile}}
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -76,6 +78,9 @@ jobs:
         with:
           name: dist
           path: dist
+      - name: Publish packaged js filename
+        id: publishedjs
+        run: find dist/assets/*.js -type f -execdir echo '::set-output name=jsfile::{}' ';'
 
   deploy:
     needs: build
@@ -97,5 +102,7 @@ jobs:
           name: dist
       - name: List files
         run: ls
+      - name: Print js filename produced from build step
+        run: echo ${{ needs.build.outputs.jsfile}}
       - name: Deploy
         run: echo "Deploying..."

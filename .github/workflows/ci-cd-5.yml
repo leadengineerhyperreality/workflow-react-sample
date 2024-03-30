@@ -21,7 +21,7 @@ jobs:
       image: node:20.11.1
       env:
         NODE_PORT: 3680
-        REDIS_HOST: 127.0.0.1
+        REDIS_HOST: redis
         REDIS_PORT: 6379
     environment:
       name: staging

@@ -38,3 +38,7 @@ test("divides 4 / 2 to equal 2", () => {
 test("powers 2^2 to equal 4", () => {
   expect(power(2, 2)).toBe(4);
 });
+
+test("powers 3^3 to equal 27", () => {
+  expect(power(3, 3)).toBe(27);
+});

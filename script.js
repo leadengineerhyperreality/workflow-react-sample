@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 // Connect to redis using env variables
 const redis = require("redis");
 

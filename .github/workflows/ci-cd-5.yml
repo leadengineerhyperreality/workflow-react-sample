@@ -16,12 +16,13 @@ env:
   GLOBAL_TOKEN: supersecretglobaltoken
 jobs:
   lint:
+    runs-on: ubuntu-latest
+    container:
+      image: node:20.11.1
     environment:
       name: staging
     env:
       HYPER_TOKEN: claudeanthropic2020
-    container:
-      image: node:20.11.1
     steps:
       - name: Clone repository
         uses: actions/checkout@v4

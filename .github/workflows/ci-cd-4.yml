@@ -11,6 +11,8 @@ on:
   push:
     branches:
       - main
+env:
+  GLOBAL_TOKEN: supersecretglobaltoken
 jobs:
   lint:
     env:
@@ -35,7 +37,9 @@ jobs:
       - name: Log token
         run: |
           echo "Claude token: ${{ env.HYPER_TOKEN }}"
-          echo "BYE byE"
+          echo "Global token: ${{ env.GLOBAL_TOKEN }}"
+          echo "Repository secret token: ${{ secrets.HYPER_SECRET_TOKEN }}"
+          echo "Repository variable: ${{ vars.HYPER_REPO_VARIABLE }}"
 
   test:
     needs: lint

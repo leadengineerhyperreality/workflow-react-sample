@@ -10,7 +10,7 @@ const client = redis.createClient({
 
 client.on("error", (err) => console.log("Redis Client Error", err));
 
-client.on("connect", () => console.log("Redis Client Connected"));
+client.on("connect", () => console.log("Redis Client Connected to Server"));
 
 client.connect();
 
@@ -20,7 +20,8 @@ client.set("mykey", "Hello World!");
 setTimeout(() => {
   client.get("mykey", (err, value) => {
     console.log(value);
+    client.quit();
   });
-}, 3000);
+}, 5000);
 
-console.log("Redis script");
+console.log("Redis script invoked");

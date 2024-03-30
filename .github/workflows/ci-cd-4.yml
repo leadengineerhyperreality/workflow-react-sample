@@ -13,6 +13,8 @@ on:
       - main
 jobs:
   lint:
+    env:
+      HYPER_TOKEN: claudeanthropic2020
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -30,6 +32,10 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
+      - name: Log token
+        run: |
+          echo "Claude token: ${{ env.HYPER_TOKEN }}"
+          echo "BYE byE"
 
   test:
     needs: lint

@@ -40,6 +40,7 @@ jobs:
           echo "Global token: ${{ env.GLOBAL_TOKEN }}"
           echo "Repository secret token: ${{ secrets.HYPER_SECRET_TOKEN }}"
           echo "Repository variable: ${{ vars.HYPER_REPO_VARIABLE }}"
+          echo "Without interpolation: $HYPER_TOKEN"
 
   test:
     needs: lint

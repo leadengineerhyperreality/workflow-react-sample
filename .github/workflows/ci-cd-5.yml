@@ -46,7 +46,7 @@ jobs:
           echo "Without interpolation: $HYPER_TOKEN"
           echo "Node PORT from container: $NODE_PORT"
       - name: Run a nodejs script (script.js)
-        run: node script.js
+        run: node script.cjs
 
   test:
     needs: lint

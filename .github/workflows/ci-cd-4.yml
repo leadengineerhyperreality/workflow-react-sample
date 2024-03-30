@@ -1,0 +1,117 @@
+name: CI-CD 4
+on:
+  pull_request:
+    types: [opened, reopened]
+
+  issues:
+    types: [opened]
+
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.1
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.1
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm run test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      jsfile: ${{ steps.publishedjs.outputs.jsfile }}
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.1
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Upload important files
+        uses: actions/upload-artifact@v4
+        with:
+          name: assets
+          path: |
+            public
+            package-lock.json
+            package.json
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Publish packaged js filename
+        id: publishedjs
+        run: find dist/assets/*.js -type f -execdir echo 'jsfile={}' >> $GITHUB_OUTPUT ';'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      JSFILE: ${{ needs.build.outputs.jsfile }}
+    steps:
+      - name: Download assets
+        uses: actions/download-artifact@v4
+        with:
+          name: assets
+      - name: List files
+        run: ls
+      - name: Remove all files
+        run: rm -rf *
+      - name: List after remove
+        run: ls
+      - name: Download build assets
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+      - name: List files
+        run: ls
+      - name: Print js filename produced from build step
+        run: echo $JSFILE
+      - name: Deploy
+        run: echo "Deploying..."

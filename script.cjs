@@ -3,9 +3,14 @@
 // Connect to redis using env variables
 const redis = require("redis");
 
+const HOST = process.env.REDIS_HOST;
+const PORT = process.env.REDIS_PORT;
+
+console.log("Using Redis host and port:", HOST, PORT);
+
 const client = redis.createClient({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
+  host: HOST,
+  port: PORT,
 });
 
 client.on("error", (err) => console.log("Redis Client Error", err));

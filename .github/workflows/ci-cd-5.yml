@@ -55,6 +55,7 @@ jobs:
           echo "Repository variable: ${{ vars.HYPER_REPO_VARIABLE }}"
           echo "Without interpolation: $HYPER_TOKEN"
           echo "Node PORT from container: $NODE_PORT"
+          echo "Redis host: $REDIS_HOST and port: $REDIS_PORT"
       - name: Run a nodejs script (script.js)
         run: node script.cjs
 

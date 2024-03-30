@@ -21,8 +21,8 @@ jobs:
       image: node:20.11.1
       env:
         NODE_PORT: 3680
-        REDIS_HOST: myredis
-        REDIS_PORT: 6379
+        # REDIS_HOST: myredis
+        # REDIS_PORT: 6379
     environment:
       name: staging
     services:
@@ -58,6 +58,9 @@ jobs:
           echo "Redis host: $REDIS_HOST and port: $REDIS_PORT"
       - name: Run a nodejs script (script.js)
         run: node script.cjs
+        env:
+          REDIS_HOST: myredis
+          REDIS_PORT: 6379
 
   test:
     needs: lint

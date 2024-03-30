@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node:20.11.1
+      env:
+        NODE_PORT: 3680
     environment:
       name: staging
     env:
@@ -42,6 +44,7 @@ jobs:
           echo "Repository secret token: ${{ secrets.HYPER_SECRET_TOKEN }}"
           echo "Repository variable: ${{ vars.HYPER_REPO_VARIABLE }}"
           echo "Without interpolation: $HYPER_TOKEN"
+          echo "Node PORT from container: $NODE_PORT"
 
   test:
     needs: lint
